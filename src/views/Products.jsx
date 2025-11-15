@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { fetchProducts } from '../controllers/productController';
-import ProductCard from '../components/ProductCard';
+import ProductCard  from '../components/ProductCard/';
 
-const Productos = () => {
-  const [productos, setProductos] = useState([]);
+const Products = () => {
+  const [productos, setProducts] = useState([]);
 
   useEffect(() => {
-    fetchProducts().then(data => setProductos(data));
+    fetchProducts().then(data => setProducts(data));
   }, []);
 
   return (
@@ -21,4 +21,4 @@ const Productos = () => {
   );
 };
 
-export default Productos;
+export default Products;
