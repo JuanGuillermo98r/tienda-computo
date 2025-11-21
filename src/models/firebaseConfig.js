@@ -1,15 +1,16 @@
 // Configuración base para conectar Firebase
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_DOMINIO.firebaseapp.com",
-  projectId: "TU_PROJECT_ID",
-  storageBucket: "TU_BUCKET.appspot.com",
-  messagingSenderId: "TU_SENDER_ID",
-  appId: "TU_APP_ID"
+  apiKey: 'AIzaSyBLQyqDQPubpwhhWJpUIAe6Uq0g78WxoQ0',
+  authDomain: 'tienda-computo-64bda.firebaseapp.com',
+  projectId: 'tienda-computo-64bda',
+  storageBucket: 'tienda-computo-64bda.firebasestorage.app',
+  messagingSenderId: '787660662436',
+  appId: '1:787660662436:web:035b3abd474b631e59a831',
 };
 
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase
+export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);

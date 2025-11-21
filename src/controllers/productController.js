@@ -1,4 +1,4 @@
-/* import { getProducts } from '../models/productModel';
+import { getProducts } from '../models/productModel';
 
 export const fetchProducts = async () => {
   try {
@@ -9,12 +9,12 @@ export const fetchProducts = async () => {
     return [];
   }
 };
- */
 
-import { productsData } from '../data/productsData';
+/* import { productsData } from '../data/productsData';
 
 export const fetchProducts = async () => {
   // Simulate latency
   await new Promise((res) => setTimeout(res, 300));
   return productsData;
 };
+ */
