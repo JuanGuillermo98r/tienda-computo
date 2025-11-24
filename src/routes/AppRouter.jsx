@@ -6,6 +6,9 @@ import Contacto from "../views/Contact";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import About from "../views/About";
+import Admin from "../views/Admin";
+import Login from "../views/Login";
+
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -16,6 +19,8 @@ const AppRouter = () => (
       <Route path="/services" element={<Servicios />} />
       <Route path="/contact" element={<Contacto />} />
       <Route path="/about" element={<About />} />
+      <Route path="/admin" element={<Admin />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
     <Footer />
   </BrowserRouter>
