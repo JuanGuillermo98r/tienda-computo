@@ -15,35 +15,64 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/admin"); // Si inicia sesión → va al panel
+      navigate("/admin");
     } catch (err) {
       setError("Correo o contraseña incorrectos");
     }
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Iniciar Sesión (Administración)</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-5">
+      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
 
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Correo"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        /><br /><br />
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          Iniciar Sesión
+        </h1>
 
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        /><br /><br />
+        <form onSubmit={handleLogin} className="space-y-5">
 
-        <button type="submit">Ingresar</button>
-      </form>
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Correo
+            </label>
+            <input
+              type="email"
+              placeholder="correo@ejemplo.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-600 outline-none transition"
+            />
+          </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Contraseña
+            </label>
+            <input
+              type="password"
+              placeholder="•••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-600 outline-none transition"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+          >
+            Ingresar
+          </button>
+
+        </form>
+
+        {error && (
+          <p className="text-red-600 text-center mt-4 font-semibold">
+            {error}
+          </p>
+        )}
+
+      </div>
     </div>
   );
 };
