@@ -6,14 +6,22 @@ import Contacto from '../views/Contact';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import About from '../views/About';
-import Admin from '../views/Admin';
 import Login from '../views/Login';
+import AdminProducts from '../views/AdminProducts';
+import AdminDashboard from '../views/AdminDashboard';
+import AdminServicios from '../views/AdminServices';
 
 function AppLayout() {
   const location = useLocation();
 
   // Rutas donde NO quieres mostrar el Navbar
-  const hideNavbarRoutes = ['/login', '/admin'];
+  const hideNavbarRoutes = [
+    '/login',
+    '/admin',
+    '/admin/products',
+    '/admin/services',
+    '/admin',
+  ];
 
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
@@ -26,8 +34,10 @@ function AppLayout() {
         <Route path="/services" element={<Servicios />} />
         <Route path="/contact" element={<Contacto />} />
         <Route path="/about" element={<About />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/products" element={<AdminProducts />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin/services" element={<AdminServicios />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </>
   );

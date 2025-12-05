@@ -1,36 +1,34 @@
-import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../models/firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../models/firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/admin");
+      navigate('/adminProducts');
     } catch (err) {
-      setError("Correo o contraseña incorrectos");
+      setError('Correo o contraseña incorrectos');
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-5">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
-
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Iniciar Sesión
         </h1>
 
         <form onSubmit={handleLogin} className="space-y-5">
-
           <div>
             <label className="block mb-1 font-medium text-gray-700">
               Correo
@@ -63,15 +61,11 @@ const Login = () => {
           >
             Ingresar
           </button>
-
         </form>
 
         {error && (
-          <p className="text-red-600 text-center mt-4 font-semibold">
-            {error}
-          </p>
+          <p className="text-red-600 text-center mt-4 font-semibold">{error}</p>
         )}
-
       </div>
     </div>
   );
