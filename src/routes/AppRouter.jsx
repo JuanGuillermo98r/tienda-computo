@@ -10,6 +10,7 @@ import Login from '../views/Login';
 import AdminProducts from '../views/AdminProducts';
 import AdminDashboard from '../views/AdminDashboard';
 import AdminServicios from '../views/AdminServices';
+import ProductDetail from '../pages/ProductDetail';
 
 function AppLayout() {
   const location = useLocation();
@@ -38,6 +39,7 @@ function AppLayout() {
         <Route path="/login" element={<Login />} />
         <Route path="/admin/services" element={<AdminServicios />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
     </>
   );

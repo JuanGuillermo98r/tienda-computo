@@ -1,20 +1,37 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { searchProducts } from '../models/productModel';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [search, setSearch] = useState('');
+  const [results, setResults] = useState([]);
   const linkStyle =
-    "text-gray-600 hover:text-purple-700 transition font-medium";
+    'text-gray-600 hover:text-purple-700 transition font-medium';
 
-  const activeStyle = "text-purple-700 font-semibold";
+  const activeStyle = 'text-purple-700 font-semibold';
+
+  // DEBOUNCE SEARCH
+  useEffect(() => {
+    const delayDebounce = setTimeout(async () => {
+      if (search.trim() !== '') {
+        console.log('Buscar:', search);
+
+        // 🔎 búsqueda Firebase
+        if (search.length >= 3) {
+          const firebaseResults = await searchProducts(search);
+          setResults(firebaseResults);
+        }
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounce);
+  }, [search]);
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6">
-
         <div className="flex justify-between items-center py-4">
-
           {/* LOGO */}
           <Link to="/" className="text-xl font-bold text-gray-800">
             Tienda de Cómputo
@@ -22,64 +39,72 @@ const Navbar = () => {
 
           {/* MENU DESKTOP */}
           <nav className="hidden md:flex items-center gap-6">
-
             <NavLink
               to="/"
-              className={({ isActive }) =>
-                isActive ? activeStyle : linkStyle
-              }
+              className={({ isActive }) => (isActive ? activeStyle : linkStyle)}
             >
               Inicio
             </NavLink>
 
             <NavLink
               to="/products"
-              className={({ isActive }) =>
-                isActive ? activeStyle : linkStyle
-              }
+              className={({ isActive }) => (isActive ? activeStyle : linkStyle)}
             >
               Productos
             </NavLink>
 
             <NavLink
               to="/services"
-              className={({ isActive }) =>
-                isActive ? activeStyle : linkStyle
-              }
+              className={({ isActive }) => (isActive ? activeStyle : linkStyle)}
             >
               Servicios
             </NavLink>
 
             <NavLink
               to="/about"
-              className={({ isActive }) =>
-                isActive ? activeStyle : linkStyle
-              }
+              className={({ isActive }) => (isActive ? activeStyle : linkStyle)}
             >
               Nosotros
             </NavLink>
 
             <NavLink
               to="/contact"
-              className={({ isActive }) =>
-                isActive ? activeStyle : linkStyle
-              }
+              className={({ isActive }) => (isActive ? activeStyle : linkStyle)}
             >
               Contacto
             </NavLink>
-
           </nav>
 
           {/* BUSCADOR */}
-          <div className="hidden md:flex items-center border rounded-lg overflow-hidden">
-            <input
-              type="text"
-              placeholder="Buscar productos..."
-              className="px-3 py-1 outline-none"
-            />
-            <button className="bg-purple-700 text-white px-3 py-1 hover:bg-purple-800 transition">
-              🔍
-            </button>
+          <div className="hidden md:flex items-center relative">
+            <div className="flex items-center border rounded-lg overflow-hidden">
+              <input
+                type="text"
+                placeholder="Buscar productos..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="px-3 py-1 outline-none"
+              />
+
+              <button className="bg-purple-700 text-white px-3 py-1 hover:bg-purple-800 transition">
+                🔍
+              </button>
+            </div>
+
+            {/* RESULTADOS BUSQUEDA */}
+            {results.length > 0 && (
+              <div className="absolute top-10 left-0 bg-white shadow-lg w-60 rounded-lg p-2 z-50">
+                {results.map((product) => (
+                  <Link
+                    key={product.id}
+                    to={`/products/${product.id}`}
+                    className="block px-2 py-1 hover:bg-gray-100 rounded"
+                  >
+                    {product.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* BOTON ADMIN */}
@@ -99,13 +124,11 @@ const Navbar = () => {
           >
             ☰
           </button>
-
         </div>
 
         {/* MENU MOVIL */}
         {menuOpen && (
           <div className="md:hidden pb-4 flex flex-col gap-3">
-
             <Link to="/">Inicio</Link>
             <Link to="/products">Productos</Link>
             <Link to="/services">Servicios</Link>
@@ -118,7 +141,6 @@ const Navbar = () => {
             >
               Admin
             </Link>
-
           </div>
         )}
       </div>

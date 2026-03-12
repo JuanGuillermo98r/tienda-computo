@@ -34,9 +34,16 @@ const AdminProducts = () => {
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
-    await addProduct(form);
+
+    await addProduct({
+      ...form,
+      name_lower: form.name.trim().toLowerCase(),
+    });
+
     setForm({ name: '', description: '', price: '', image: '' });
+
     fetchData();
+
     alert('Producto agregado exitosamente');
   };
 
